@@ -39,10 +39,40 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Root route
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Contact Manager API',
+    status: 'running',
+    endpoints: {
+      auth: '/auth',
+      contacts: '/api/contacts',
+      email: '/api/email'
+    }
+  });
+});
+
 // Routes
 app.use('/auth', authRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/email', emailRoutes);
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ 
+    error: 'Something went wrong!',
+    message: process.env.NODE_ENV === 'development' ? err.message : undefined
+  });
+});
+
+// 404 handler
+app.use((req, res) => {
+  res.status(404).json({ 
+    error: 'Not Found',
+    message: `Cannot ${req.method} ${req.url}`
+  });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
