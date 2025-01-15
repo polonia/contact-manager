@@ -13,7 +13,9 @@ router.get('/google',
 
 router.get('/google/callback',
   passport.authenticate('google', { failureRedirect: `${CLIENT_URL}/login` }),
-  (req, res) => res.redirect(`${CLIENT_URL}/dashboard`)
+  (req, res) => {
+    res.redirect(`${CLIENT_URL}/dashboard`);
+  }
 );
 
 router.get('/linkedin',
@@ -22,12 +24,15 @@ router.get('/linkedin',
 
 router.get('/linkedin/callback',
   passport.authenticate('linkedin', { failureRedirect: `${CLIENT_URL}/login` }),
-  (req, res) => res.redirect(`${CLIENT_URL}/dashboard`)
+  (req, res) => {
+    res.redirect(`${CLIENT_URL}/dashboard`);
+  }
 );
 
 router.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect(CLIENT_URL);
+  req.logout(() => {
+    res.redirect(CLIENT_URL);
+  });
 });
 
 export const authRoutes = router;

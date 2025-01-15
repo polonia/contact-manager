@@ -9,9 +9,13 @@ import { dirname, join } from 'path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: join(dirname(__dirname), '.env') });
 
-const CLIENT_URL = process.env.NODE_ENV === 'production'
+const SERVER_URL = process.env.NODE_ENV === 'production'
   ? 'https://contact-manager-backend.onrender.com'
   : 'http://localhost:3000';
+
+const CLIENT_URL = process.env.NODE_ENV === 'production'
+  ? 'https://radiant-elf-cd347f.netlify.app'
+  : 'http://localhost:5173';
 
 // Serialize user for the session
 passport.serializeUser((user, done) => {
@@ -27,7 +31,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: `${CLIENT_URL}/auth/google/callback`
+    callbackURL: `${SERVER_URL}/auth/google/callback`
   },
   (accessToken, refreshToken, profile, done) => {
     const user = {
@@ -43,7 +47,7 @@ passport.use(new GoogleStrategy({
 passport.use(new LinkedInStrategy({
     clientID: process.env.LINKEDIN_CLIENT_ID,
     clientSecret: process.env.LINKEDIN_CLIENT_SECRET,
-    callbackURL: `${CLIENT_URL}/auth/linkedin/callback`,
+    callbackURL: `${SERVER_URL}/auth/linkedin/callback`,
     scope: ['r_emailaddress', 'r_liteprofile']
   },
   (accessToken, refreshToken, profile, done) => {
