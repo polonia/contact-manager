@@ -79,6 +79,10 @@ A full-stack application that integrates with Google and LinkedIn APIs to manage
 3. Request API access
 4. Add authorized redirect URI: `http://localhost:3000/auth/linkedin/callback`
 
+## Available Deployment
+1. Backend at https://contact-manager-rdj4.onrender.com
+2. Frontend at https://radiant-elf-cd347f.netlify.app/
+
 ## Available Scripts
 
 - `npm run dev` - Start development server (frontend + backend)
@@ -96,4 +100,6 @@ A full-stack application that integrates with Google and LinkedIn APIs to manage
 
 ## License
 
-MIT
+This project is licensed under the [MIT License](./LICENSE).
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
